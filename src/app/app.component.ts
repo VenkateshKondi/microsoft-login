@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MsalService } from '@azure/msal-angular';
 import { AuthenticationResult } from '@azure/msal-browser';
@@ -9,8 +10,9 @@ import { AuthenticationResult } from '@azure/msal-browser';
 })
 export class AppComponent implements OnInit {
   title = 'microsoft-login';
-
-  constructor(private msalService: MsalService) { }
+  apiResponse:any;
+  displayName:string |undefined
+  constructor(private msalService: MsalService,private _httpClient:HttpClient) { }
   ngOnInit(): void {
     this.msalService.instance.handleRedirectPromise().then(
       res =>{
@@ -35,5 +37,27 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.msalService.logout();
+  }
+  callProfile(){
+    this._httpClient.get("https://graph.microsoft.com/v1.0/me").subscribe(resp =>{
+      this.apiResponse=resp;
+      console.log(resp)
+    })
+  }
+  callEmails () {
+    this._httpClient.get("https://graph.microsoft.com/v1.0/me/messages").subscribe( resp  => {
+      this.apiResponse=resp
+    })
+  }
+
+  sayHello () {
+    this._httpClient.get("http://localhost:8080/hello").subscribe( resp  => {
+      this.apiResponse=resp
+    })
+  }
+  getImg () {
+    this._httpClient.get("https://graph.microsoft.com/v1.0/me/photo/$value").subscribe( resp  => {
+      this.apiResponse=resp
+    })
   }
 }
