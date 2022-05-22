@@ -1,29 +1,156 @@
-<nav class="navbar bg-dark">
+<!-- <nav class="navbar bg-dark">
   <div class="container-fluid">
-    <button class="btn btn-warning mx-2" routerLink="public-page"  *ngIf="!isLoggedIn()">Public Page</button>
-    <button class="btn btn-warning mx-2" routerLink="restricted-page"  *ngIf="isLoggedIn()">Restricted Page</button>
-    <span> 
+    <div class="navbar">
+        <a class="navbar-brand " style="color: white;">ARIQT</a>
+        
+    </div>
+    <ul class="nav navbar-nav">
+      <li>
+        <button class="btn btn-warning mx-2" routerLink="public-page"  *ngIf="!isLoggedIn()">Public Page</button>
+         <button class="btn btn-warning mx-2" routerLink="restricted-page"  *ngIf="isLoggedIn()">Restricted Page</button>
+     </li>
+   </ul>
+    
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+        <button class="btn-light" (click)="getImg()"  *ngIf="isLoggedIn()">GET PROFILE</button>
       <button class="btn btn-warning mx-2" (click)="login()" *ngIf="!isLoggedIn()">SIGN IN</button>
       <button class="btn btn-warning mx-2" (click)="logout()" *ngIf="isLoggedIn()">SIGN OUT</button>
-    </span>
+      </li>
+    </ul>
  </div>   
+</nav> -->
+
+<nav class="navbar navbar-light bg-info d-flex">
+  <div class="">
+    <h2>
+      <span class="navbar-brand badge bg-warning p-2 my-2" routerLink=""
+        >ARIQT</span
+      >
+    </h2>
+  </div>
+  <ul>
+    <li style="list-style: none">
+      <button
+        class="btn btn-light"
+        (click)=" callProfile()"
+        *ngIf="isLoggedIn()"
+      >
+        GET PROFILE
+      </button>
+      <button
+        class="btn btn-warning mx-2"
+        (click)="login()"
+        *ngIf="!isLoggedIn()"
+      >
+        SIGN IN
+      </button>
+      <button
+        class="btn btn-warning mx-2"
+        (click)="logout()"
+        *ngIf="isLoggedIn()"
+      >
+        SIGN OUT
+      </button>
+    </li>
+  </ul>
 </nav>
-<div class="text-center">
+<div class="conttainer-fluid">
+  <router-outlet></router-outlet>
+</div>
+<!-- <div class="text-center">
   <div *ngIf="isLoggedIn()">
     <h2>You have Logged In</h2>
   </div>
   <div *ngIf="!isLoggedIn()">
     <h2>You have Not Logged In</h2>
   </div>
-</div>
-<br><br>
+</div> -->
+
 <div *ngIf="isLoggedIn()">
+  <div class="container mt-4">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-7 mt-4">
+        <div *ngIf="isLoggedIn()">
+          <div *ngIf="myProfile">
+            <div class="card mt-4 rounded">
+              <div class="text-center" style="margin-top:-60px">
+                <img
+                src="https://i.imgur.com/bDLhJiP.jpg"
+                  width="200"
+                  class="rounded-circle"
+                />
+              </div>
+              <table class="table table-borderless text-center">
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="d-flex flex-column">
+                        <span class="text-left head badge bg-secondary">FULL NAME</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex flex-column">
+                        <span class="text-left head"
+                          ><h5>{{ myProfile.displayName }}</h5></span
+                        >
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex flex-column">
+                        <span class="text-left head badge bg-secondary">EMAIL</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex flex-column">
+                        <span class="text-left head"
+                          ><h5>{{ myProfile.mail }}</h5></span
+                        >
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex flex-column badge bg-secondary">
+                        <span class="text-left head">NAME</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex flex-column">
+                        <span class="text-left head "
+                          ><h5>{{ myProfile.surname }}</h5></span
+                        >
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- <div class="text-center">
+                <h5>{{ myProfile.displayName }}</h5>
+                <span>{{ myProfile.mail }}</span>
+                <div class="px-4 mt-1">
+                  <p class="fonts">
+                    {{ myProfile.surname }}
+                  </p>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br /><br />
+<!-- <div *ngIf="isLoggedIn()">
   <table>
-    <!-- <tr>
-      <td><span>Welcome {{getName()}}!</span></td>
-    </tr> -->
     <tr>
-      <td><span><button (click)="callProfile() ">GET PROFILE</button></span></td>
+      <td><span>Welcome {{getName()}}!</span></td>
+    </tr>
+    <tr>
+      <td><span></span></td>
     </tr>
     <tr>
       <td><span><button (click)="callEmails()">GET EMAILS</button></span></td>
@@ -34,7 +161,7 @@
     
   </table>
   <h1 *ngIf="apiResponse">{{apiResponse.mail}}</h1>
-</div>
+</div> -->
 
 <!-- <div class="container" *ngIf="isLoggedIn()">
   <div class="row d-flex justify-content-center">
@@ -82,12 +209,3 @@
   </div>
 </div> -->
 <router-outlet></router-outlet>
-
-
-
-
-
-
-
-
-

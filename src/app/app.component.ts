@@ -12,6 +12,11 @@ export class AppComponent implements OnInit {
   title = 'microsoft-login';
   apiResponse:any;
   displayName:string |undefined
+  profilePhoto: any;
+  myMessages: any;
+  myProfile: any;
+  allUsersInfo: any;
+  myphoto: any;
   constructor(private msalService: MsalService,private _httpClient:HttpClient) { }
   ngOnInit(): void {
     this.msalService.instance.handleRedirectPromise().then(
@@ -21,6 +26,9 @@ export class AppComponent implements OnInit {
         }
       }
     )
+    
+    this.getUsers()
+    
   }
 
   isLoggedIn() :boolean{
@@ -28,8 +36,9 @@ export class AppComponent implements OnInit {
     return this.msalService.instance.getActiveAccount()!= null
   }
   login(){
-
+   
      this.msalService.loginRedirect();
+    
     // this.msalService.loginPopup().subscribe((response: AuthenticationResult) => {
     //    this.msalService.instance.setActiveAccount(response.account)
     // });
@@ -40,24 +49,25 @@ export class AppComponent implements OnInit {
   }
   callProfile(){
     this._httpClient.get("https://graph.microsoft.com/v1.0/me").subscribe(resp =>{
-      this.apiResponse=resp;
-      console.log(resp)
+      this.myProfile=resp;
     })
   }
   callEmails () {
     this._httpClient.get("https://graph.microsoft.com/v1.0/me/messages").subscribe( resp  => {
-      this.apiResponse=resp
-    })
-  }
-
-  sayHello () {
-    this._httpClient.get("http://localhost:8080/hello").subscribe( resp  => {
-      this.apiResponse=resp
+      this.myMessages=resp
     })
   }
   getImg () {
     this._httpClient.get("https://graph.microsoft.com/v1.0/me/photo/$value").subscribe( resp  => {
-      this.apiResponse=resp
+      this.profilePhoto=resp
+      console.log(resp)
+    })
+  }
+  getUsers(){
+    this._httpClient.get("https://graph.microsoft.com/v1.0/users").subscribe(resp => {
+      this.allUsersInfo=resp
+      debugger
+      console.log(resp)
     })
   }
 }

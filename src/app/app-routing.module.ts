@@ -7,7 +7,7 @@ import { RestrictedPageComponent } from './restricted-page/restricted-page.compo
 const routes: Routes = [
   { path:'public-page', component:PublicPageComponent},
   { path:'restricted-page', component:RestrictedPageComponent, canActivate:[MsalGuard]},
-  { path:'**', component:PublicPageComponent}
+  // { path:'**', component:PublicPageComponent}
 ];
 
 @NgModule({
