@@ -14,9 +14,9 @@ import { RestrictedPageComponent } from './restricted-page/restricted-page.compo
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
-      clientId: '68f7dbed-6f6e-4c8e-ba02-012fd8df98a8',
+      clientId: 'clientId',
       redirectUri: 'http://localhost:4200/',
-      authority: 'https://login.microsoftonline.com/{8f6bd982-92c3-4de0-985d-0e287c55e379}/'
+      authority: 'https://login.microsoftonline.com/{clientId}/'
      
     }
   });
